@@ -2,6 +2,9 @@ const navButtons = document.querySelectorAll('.nav-button');
 const sections = document.querySelectorAll('.page-section');
 const heroLinks = document.querySelectorAll('.hero-link');
 const heartField = document.querySelector('.heart-field');
+const music = document.querySelector('#background-music');
+const musicToggle = document.querySelector('.music-toggle');
+const musicStatus = document.querySelector('.music-status');
 const heartSymbols = ['💖', '💗', '❤️', '💕'];
 
 function showSection(sectionId) {
@@ -44,6 +47,46 @@ heroLinks.forEach(link => {
     event.preventDefault();
     showSection(link.dataset.target);
   });
+});
+
+musicToggle.addEventListener('click', async () => {
+  if (music.paused) {
+    try {
+      await music.play();
+      musicToggle.textContent = '\u23f8';
+      musicToggle.setAttribute('aria-label', 'Pause background music');
+      musicToggle.setAttribute('aria-pressed', 'true');
+      musicStatus.textContent = 'Background music playing';
+    } catch {
+      musicStatus.textContent = 'Add a licensed music.mp3 file to play music';
+    }
+  } else {
+    music.pause();
+    musicToggle.textContent = '\u25b6';
+    musicToggle.setAttribute('aria-label', 'Play background music');
+    musicToggle.setAttribute('aria-pressed', 'false');
+    musicStatus.textContent = 'Background music paused';
+  }
+});
+
+music.addEventListener('error', () => {
+  musicStatus.textContent = 'Add a licensed music.mp3 file to play music';
+  musicToggle.disabled = true;
+});
+
+music.play().then(() => {
+  musicToggle.textContent = '\u23f8';
+  musicToggle.setAttribute('aria-label', 'Pause background music');
+  musicToggle.setAttribute('aria-pressed', 'true');
+  musicStatus.textContent = 'Background music playing';
+}).catch(() => {
+  musicStatus.textContent = 'Press play to start background music';
+});
+
+['click', 'keydown', 'touchstart'].forEach(eventName => {
+  document.addEventListener(eventName, () => {
+    music.play().catch(() => {});
+  }, { once: true });
 });
 
 showSection('home');

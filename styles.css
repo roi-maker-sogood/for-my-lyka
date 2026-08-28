@@ -40,6 +40,43 @@ body {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
 }
 
+.music-player {
+  display: none;
+}
+
+.music-toggle {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #180021;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.music-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.music-details {
+  display: grid;
+  gap: 2px;
+}
+
+.music-label {
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.music-status {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
 @keyframes driftHeart {
   0% {
     transform: translate3d(0, 0, 0) rotate(0deg);
@@ -190,14 +227,27 @@ p {
   text-align: center;
   padding: 22px;
   color: var(--text);
+  overflow: hidden;
 }
 
 .memory-card {
   font-size: 0.95rem;
+  aspect-ratio: 4 / 5;
+}
+
+.memory-card img,
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 18px;
 }
 
 .gallery-card {
   min-height: 280px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
 }
 
 .message-box {

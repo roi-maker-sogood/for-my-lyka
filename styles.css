@@ -108,13 +108,6 @@ body {
 .no-button {
   background: rgba(255, 255, 255, 0.16);
   border: 1px solid rgba(255, 255, 255, 0.22);
-  touch-action: none;
-}
-
-.no-button.is-running {
-  position: absolute;
-  z-index: 21;
-  margin: 0;
 }
 
 @keyframes gateEntrance {

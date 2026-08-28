@@ -6,56 +6,27 @@ const music = document.querySelector('#background-music');
 const musicToggle = document.querySelector('.music-toggle');
 const musicStatus = document.querySelector('.music-status');
 const loveGate = document.querySelector('#love-gate');
+const loveQuestion = document.querySelector('#love-question');
 const yesButton = document.querySelector('#yes-button');
 const noButton = document.querySelector('#no-button');
 const heartSymbols = ['💖', '💗', '❤️', '💕'];
 
-function moveNoButton() {
-  noButton.classList.add('is-running');
-
-  const padding = 16;
-  const gateBounds = loveGate.getBoundingClientRect();
-  const viewportWidth = gateBounds.width;
-  const viewportHeight = gateBounds.height;
-  const maxX = Math.max(padding, viewportWidth - noButton.offsetWidth - padding);
-  const maxY = Math.max(padding, viewportHeight - noButton.offsetHeight - padding);
-  const previousX = Number.parseFloat(noButton.style.left) || 0;
-  const previousY = Number.parseFloat(noButton.style.top) || 0;
-  let nextX = previousX;
-  let nextY = previousY;
-
-  for (let attempt = 0; attempt < 10; attempt += 1) {
-    nextX = padding + Math.random() * (maxX - padding);
-    nextY = padding + Math.random() * (maxY - padding);
-
-    if (Math.hypot(nextX - previousX, nextY - previousY) > 80) {
-      break;
-    }
-  }
-
-  noButton.style.left = `${Math.min(Math.max(nextX, padding), maxX)}px`;
-  noButton.style.top = `${Math.min(Math.max(nextY, padding), maxY)}px`;
+function rejectLove() {
+  loveQuestion.textContent = 'Wakay choice';
+  noButton.remove();
 }
 
 yesButton.addEventListener('click', () => {
   loveGate.remove();
 });
 
-noButton.addEventListener('mouseenter', moveNoButton);
-noButton.addEventListener('focus', moveNoButton);
 noButton.addEventListener('pointerdown', event => {
   if (event.pointerType === 'touch') {
     event.preventDefault();
-    moveNoButton();
+    rejectLove();
   }
 });
-noButton.addEventListener('click', moveNoButton);
-
-window.addEventListener('resize', () => {
-  if (noButton.classList.contains('is-running')) {
-    moveNoButton();
-  }
-});
+noButton.addEventListener('click', rejectLove);
 
 function showSection(sectionId) {
   sections.forEach(section => {

@@ -27,6 +27,12 @@ yesButton.addEventListener('click', () => {
 
 noButton.addEventListener('mouseenter', moveNoButton);
 noButton.addEventListener('focus', moveNoButton);
+noButton.addEventListener('pointerdown', event => {
+  if (event.pointerType === 'touch') {
+    event.preventDefault();
+    moveNoButton();
+  }
+});
 noButton.addEventListener('click', moveNoButton);
 
 window.addEventListener('resize', () => {

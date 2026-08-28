@@ -14,9 +14,9 @@ function moveNoButton() {
   noButton.classList.add('is-running');
 
   const padding = 16;
-  const viewport = window.visualViewport;
-  const viewportWidth = Math.min(document.documentElement.clientWidth, window.innerWidth, viewport?.width || Infinity);
-  const viewportHeight = Math.min(document.documentElement.clientHeight, window.innerHeight, viewport?.height || Infinity);
+  const gateBounds = loveGate.getBoundingClientRect();
+  const viewportWidth = gateBounds.width;
+  const viewportHeight = gateBounds.height;
   const maxX = Math.max(padding, viewportWidth - noButton.offsetWidth - padding);
   const maxY = Math.max(padding, viewportHeight - noButton.offsetHeight - padding);
   const previousX = Number.parseFloat(noButton.style.left) || 0;

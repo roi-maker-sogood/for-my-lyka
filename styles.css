@@ -112,7 +112,7 @@ body {
 }
 
 .no-button.is-running {
-  position: fixed;
+  position: absolute;
   z-index: 21;
   margin: 0;
 }

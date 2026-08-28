@@ -14,11 +14,27 @@ function moveNoButton() {
   noButton.classList.add('is-running');
 
   const padding = 16;
-  const maxX = Math.max(padding, window.innerWidth - noButton.offsetWidth - padding);
-  const maxY = Math.max(padding, window.innerHeight - noButton.offsetHeight - padding);
+  const viewport = window.visualViewport;
+  const viewportWidth = Math.min(document.documentElement.clientWidth, window.innerWidth, viewport?.width || Infinity);
+  const viewportHeight = Math.min(document.documentElement.clientHeight, window.innerHeight, viewport?.height || Infinity);
+  const maxX = Math.max(padding, viewportWidth - noButton.offsetWidth - padding);
+  const maxY = Math.max(padding, viewportHeight - noButton.offsetHeight - padding);
+  const previousX = Number.parseFloat(noButton.style.left) || 0;
+  const previousY = Number.parseFloat(noButton.style.top) || 0;
+  let nextX = previousX;
+  let nextY = previousY;
 
-  noButton.style.left = `${padding + Math.random() * (maxX - padding)}px`;
-  noButton.style.top = `${padding + Math.random() * (maxY - padding)}px`;
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    nextX = padding + Math.random() * (maxX - padding);
+    nextY = padding + Math.random() * (maxY - padding);
+
+    if (Math.hypot(nextX - previousX, nextY - previousY) > 80) {
+      break;
+    }
+  }
+
+  noButton.style.left = `${Math.min(Math.max(nextX, padding), maxX)}px`;
+  noButton.style.top = `${Math.min(Math.max(nextY, padding), maxY)}px`;
 }
 
 yesButton.addEventListener('click', () => {

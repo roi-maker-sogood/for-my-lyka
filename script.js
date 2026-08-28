@@ -5,7 +5,35 @@ const heartField = document.querySelector('.heart-field');
 const music = document.querySelector('#background-music');
 const musicToggle = document.querySelector('.music-toggle');
 const musicStatus = document.querySelector('.music-status');
+const loveGate = document.querySelector('#love-gate');
+const yesButton = document.querySelector('#yes-button');
+const noButton = document.querySelector('#no-button');
 const heartSymbols = ['💖', '💗', '❤️', '💕'];
+
+function moveNoButton() {
+  noButton.classList.add('is-running');
+
+  const padding = 16;
+  const maxX = Math.max(padding, window.innerWidth - noButton.offsetWidth - padding);
+  const maxY = Math.max(padding, window.innerHeight - noButton.offsetHeight - padding);
+
+  noButton.style.left = `${padding + Math.random() * (maxX - padding)}px`;
+  noButton.style.top = `${padding + Math.random() * (maxY - padding)}px`;
+}
+
+yesButton.addEventListener('click', () => {
+  loveGate.remove();
+});
+
+noButton.addEventListener('mouseenter', moveNoButton);
+noButton.addEventListener('focus', moveNoButton);
+noButton.addEventListener('click', moveNoButton);
+
+window.addEventListener('resize', () => {
+  if (noButton.classList.contains('is-running')) {
+    moveNoButton();
+  }
+});
 
 function showSection(sectionId) {
   sections.forEach(section => {

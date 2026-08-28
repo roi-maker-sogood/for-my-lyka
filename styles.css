@@ -40,6 +40,99 @@ body {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
 }
 
+.love-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(19, 1, 39, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.love-gate-card {
+  width: min(100%, 560px);
+  padding: 54px 32px;
+  text-align: center;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  animation: gateEntrance 0.65s ease both;
+}
+
+.love-gate-eyebrow {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.love-gate h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 7vw, 4.8rem);
+  line-height: 1.05;
+}
+
+.love-gate-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.love-button {
+  min-width: 104px;
+  padding: 13px 24px;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.love-button:hover,
+.love-button:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.yes-button {
+  background: linear-gradient(135deg, #ff7cc7, #ff4da6);
+}
+
+.no-button {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.no-button.is-running {
+  position: fixed;
+  z-index: 21;
+  margin: 0;
+}
+
+@keyframes gateEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 560px) {
+  .love-gate-card {
+    padding: 42px 20px;
+  }
+}
+
 .music-player {
   display: none;
 }
